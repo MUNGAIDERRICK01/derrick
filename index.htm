@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redwatch Hub</title>
+    
+</head>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        background: #f2f2f2;
+    }
+    header {
+        background: #d62828;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+    }
+    nav {
+        display: flex;
+        background: #003049;
+        padding: 0.5rem;
+        justify-content: space-around;
+    }
+    nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    nav a:hover {
+        text-decoration: underline;
+    }
+    .container {
+        padding: 2rem;
+    }
+    .card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        margin-bottom: 1rem;
+    }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    input, textarea, select, button {
+        padding: 0.5rem;
+        width: 100%;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+    }
+    textarea {
+        resize: vertical;
+    }
+
+    /* Fire Animation Styles */
+    #scene {
+        position: relative;
+        height: 400px;
+        background-color: #f1f1f1;
+        margin-top: 20px;
+        overflow: hidden;
+    }
+
+    .fire-engine, .firefighter, .fire, .water-spray {
+        position: absolute;
+    }
+
+    .fire-engine {
+        width: 300px;
+        height: 150px;
+        background-image: url('path_to_your_fire_engine_image.png'); /* Replace with your actual fire engine image path */
+        background-size: contain;
+        bottom: 50px;
+        left: 10%;
+    }
+
+    .firefighter {
+        width: 80px;
+        height: 180px;
+        background-color: #4A90E2;
+        border-radius: 10px;
+        bottom: 50px;
+        left: 30%;
+        animation: firefighter-move 5s infinite alternate;
+    }
+
+    .fire {
+        width: 120px;
+        height: 120px;
+        background-color: orange;
+        border-radius: 50%;
+        animation: fire-burn 4s infinite alternate;
+        top: 40%;
+        left: 70%;
+    }
+
+    .water-spray {
+        width: 100px;
+        height: 10px;
+        background-color: lightblue;
+        border-radius: 10px;
+        display: none;
+        bottom: 50px;
+        left: 60%;
+        animation: water-spray-animation 3s forwards;
+    }
+
+    /* Firefighter animation */
+    @keyframes firefighter-move {
+        0% {
+            left: 30%;
+        }
+        100% {
+            left: 60%;
+        }
+    }
+
+    /* Fire burning animation */
+    @keyframes fire-burn {
+        0% {
+            transform: scale(1);
+            background-color: orange;
+        }
+        100% {
+            transform: scale(1.3);
+            background-color: red;
+        }
+    }
+
+    /* Water spray animation */
+    @keyframes water-spray-animation {
+        0% {
+            left: 60%;
+            width: 100px;
+            opacity: 0;
+        }
+        50% {
+            width: 200px;
+            opacity: 1;
+        }
+        100% {
+            left: 50%;
+            width: 0;
+            opacity: 0;
+        }
+    }
+
+</style>
+<body>
+    <header>
+        <h1>Welcome to Redwatch Hub</h1>
+        <p>Coordinating our Watch Activities with Purpose</p>
+    </header>
+    <nav>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#leaders">Leaders</a>
+        <a href="#stations">Stations</a>
+        <a href="#events">Events</a>
+        <a href="#comms">Comms</a>
+    </nav>
+
+    <div class="container" id="dashboard">
+        <h2>Dashboard</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Total Members</h3>
+                <p>90</p>
+            </div>
+            <div class="card">
+                <h3>Stations</h3>
+                <p>Headquarters...</p>
+                <p> Enterprise... Rd</p>
+                <p>Kangundo Rd...</p>
+                <p>Waithaka Stn...</p>
+                <p>Ruaraka Stn...</p>
+                <p>Gigiri Stn...</p>
+            </div>
+            <div class="card">
+                <h3>Upcoming Events</h3>
+                <p>Issuance of new PPe's Coming Soon...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="stations">
+        <h2>Stations</h2>
+        <div class="card">
+            <h3>Register to a Station</h3>
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label for="station">Choose Station</label>
+                <select id="station">
+                    <option value="Headquarters">Station 1</option>
+                    <option value="Enterprise">Station 2</option>
+                    <option value="Kngundo Rd">Station 3</option>
+                    <option value="Ruaraka Stn">Station 4</option>
+                    <option value="Gigiri Stn"></option>
+                    <option value="Waithaka Stn"></option>
+                </select>
+            </div>
+            <button onclick="registerMember()">Register</button>
+            <p id="confirmation"></p>
+        </div>
+    </div>
+
+    <div class="container" id="leaders">
+        <h2>Leader Communications</h2>
+        <div class="card">
+            <h3>Post an Update (Leaders Only)</h3>
+            <div class="form-group">
+                <input type="password" id="leaderPass" placeholder="Enter leader code">
+            </div>
+            <div class="form-group">
+                <textarea id="leaderMsg" rows="4" placeholder="Enter your message"></textarea>
+            </div>
+            <button onclick="postMessage()">Post Message</button>
+            <p id="msgConfirm"></p>
+        </div>
+
+        <div class="card">
+            <h3>Latest Leader Messages</h3>
+            <ul id="leaderBoard"></ul>
+        </div>
+    </div>
+
+    <!-- Fire Animation Section -->
+    <div id="scene">
+        <!-- Fire Engine -->
+        <div class="fire-engine"></div>
+
+        <!-- Firefighter -->
+        <div class="firefighter"></div>
+
+        <!-- Fire -->
+        <div class="fire"></div>
+
+        <!-- Water Spray -->
+        <div class="water-spray" id="water-spray"></div>
+    </div>
+
+    <script>
+        function registerMember() {
+            const name = document.getElementById('name').value;
+            const station = document.getElementById('station').value;
+            if (name && station) {
+                const entry = `${name} - ${station}`;
+                let members = JSON.parse(localStorage.getItem('stationMembers')) || [];
+                members.push(entry);
+                localStorage.setItem('stationMembers', JSON.stringify(members));
+                document.getElementById('confirmation').innerText = `Registered ${entry}`;
+                document.getElementById('name').value = '';
+            } else {
+                alert('Please enter your name and choose a station.');
+            }
+        }
+
+        function postMessage() {
+            const pass = document.getElementById('leaderPass').value;
+            const msg = document.getElementById('leaderMsg').value;
+            if (pass === 'watchlead' && msg.trim() !== '') {
+                let messages = JSON.parse(localStorage.getItem('leaderMessages')) || [];
+                const timestamp = new Date().toLocaleString();
+                messages.unshift(`${timestamp}: ${msg}`);
+                localStorage.setItem('leaderMessages', JSON.stringify(messages));
+                document.getElementById('msgConfirm').innerText = "Message posted.";
+                document.getElementById('leaderMsg').value = '';
+                loadMessages();
+            } else {
+                alert('Incorrect leader code or empty message.');
+            }
+        }
+
+        function loadMessages() {
+            let messages = JSON.parse(localStorage.getItem('leaderMessages')) || [];
+            const board = document.getElementById('leaderBoard');
+            board.innerHTML = '';
+            messages.forEach(msg => {
+                const li = document.createElement('li');
+                li.textContent = msg;
+                board.appendChild(li);
+            });
+        }
+
+        window.onload = function () {
+            let waterSpray = document.getElementById('water-spray');
+
+            // Simulate firefighter putting out the fire
+            setTimeout(() => {
+                // Show the water spray
+                waterSpray.style.display = 'block';
+            }, 3000); // Wait 3 seconds before spraying water
+
+            // Hide the water spray after the animation is done
+            setTimeout(() => {
+                waterSpray.style.display = 'none';
+            }, 6000); // Hide after 6 seconds
+        }
+
+        window.onload = loadMessages;
+    </script>
+</body>
+</html>
